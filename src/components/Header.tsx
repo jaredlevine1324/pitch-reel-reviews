@@ -22,20 +22,15 @@ export const Header = ({
 }: HeaderProps) => {
   return (
     <header className={cn(
-      "sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
+      "sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/80",
       className
     )}>
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+      <div className="container mx-auto px-6 h-20 flex items-center justify-between">
         {/* Logo */}
-        <div className="flex items-center space-x-2">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-lg">S</span>
-            </div>
-            <h1 className="text-xl font-bold text-foreground">
-              StartupReels
-            </h1>
-          </div>
+        <div className="flex items-center">
+          <h1 className="text-2xl font-serif font-medium text-primary tracking-wide">
+            STARTUPREELS
+          </h1>
         </div>
 
         {/* Search Bar */}

@@ -56,8 +56,8 @@ export const VideoCard = ({
   return (
     <div 
       className={cn(
-        "group cursor-pointer transition-all duration-300",
-        "hover:scale-[1.02] hover:shadow-card-hover",
+        "group cursor-pointer transition-all duration-300 bg-card rounded-lg overflow-hidden",
+        "hover:shadow-card-hover border border-border",
         className
       )}
       style={style}
@@ -65,7 +65,7 @@ export const VideoCard = ({
     >
       {/* Video Thumbnail */}
       <div className={cn(
-        "relative overflow-hidden rounded-lg bg-gradient-card shadow-card",
+        "relative overflow-hidden bg-muted",
         sizeClasses[size]
       )}>
         <img 
@@ -97,20 +97,18 @@ export const VideoCard = ({
       </div>
 
       {/* Video Info */}
-      <div className="mt-4 space-y-2">
-        <div className="flex items-start justify-between gap-3">
-          <div className="flex-1 min-w-0">
-            <h3 className="font-semibold text-foreground line-clamp-2 group-hover:text-primary transition-colors">
-              {video.title}
-            </h3>
-            <p className="text-sm text-muted-foreground mt-1">{video.company}</p>
-          </div>
+      <div className="p-4 space-y-3">
+        <div className="space-y-1">
+          <h3 className="font-medium text-foreground line-clamp-2 leading-snug">
+            {video.title}
+          </h3>
+          <p className="text-sm text-muted-foreground">{video.company}</p>
         </div>
 
         {/* Rating and Stats */}
         <div className="flex items-center justify-between">
           <StarRating rating={video.rating} size="sm" />
-          <div className="flex items-center gap-4 text-xs text-muted-foreground">
+          <div className="flex items-center gap-3 text-xs text-muted-foreground">
             <div className="flex items-center gap-1">
               <Eye className="w-3 h-3" />
               {formatViews(video.views)}
@@ -119,16 +117,21 @@ export const VideoCard = ({
               <MessageSquare className="w-3 h-3" />
               {video.reviewCount}
             </div>
-            <div className="flex items-center gap-1">
-              <Calendar className="w-3 h-3" />
-              {formatDate(video.uploadDate)}
-            </div>
           </div>
+        </div>
+
+        {/* Tags */}
+        <div className="flex gap-1 flex-wrap">
+          {video.tags.slice(0, 3).map((tag) => (
+            <Badge key={tag} variant="secondary" className="text-xs">
+              {tag}
+            </Badge>
+          ))}
         </div>
 
         {/* Description */}
         {showDescription && video.description && (
-          <p className="text-sm text-muted-foreground line-clamp-2">
+          <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
             {video.description}
           </p>
         )}

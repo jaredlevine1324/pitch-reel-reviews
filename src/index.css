@@ -2,48 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
-/* StartupReels - A Letterboxd-inspired platform for B2B startup videos
-Design System: Dark, sophisticated theme with warm accent colors
+/* StartupReels - Clean, minimal design inspired by Shortverse
+Design System: Light, sophisticated theme with elegant typography
 */
 
 @layer base {
   :root {
-    /* Dark theme inspired by Letterboxd */
-    --background: 220 13% 9%;
-    --foreground: 210 40% 98%;
+    /* Light, clean theme */
+    --background: 0 0% 100%;
+    --foreground: 220 13% 9%;
 
-    --card: 220 13% 11%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 13% 9%;
 
-    --popover: 220 13% 11%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 13% 9%;
 
-    --primary: 25 95% 53%;
-    --primary-foreground: 220 13% 9%;
+    --primary: 264 83% 57%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 13% 15%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 220 13% 9%;
 
-    --muted: 220 13% 15%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
 
-    --accent: 25 95% 53%;
+    --accent: 220 14% 96%;
     --accent-foreground: 220 13% 9%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 220 13% 20%;
-    --input: 220 13% 15%;
-    --ring: 25 95% 53%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 264 83% 57%;
 
     /* Custom design tokens */
     --star-rating: 45 93% 58%;
-    --star-empty: 220 13% 35%;
-    --gradient-hero: linear-gradient(135deg, hsl(220 13% 9%) 0%, hsl(220 13% 15%) 100%);
-    --gradient-card: linear-gradient(180deg, hsl(220 13% 11%) 0%, hsl(220 13% 13%) 100%);
-    --shadow-card: 0 8px 32px -8px hsl(220 13% 5% / 0.6);
-    --shadow-hover: 0 16px 48px -12px hsl(220 13% 5% / 0.8);
+    --star-empty: 220 13% 75%;
+    --gradient-hero: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(220 14% 98%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(220 14% 99%) 100%);
+    --shadow-card: 0 1px 3px 0 hsl(220 13% 9% / 0.1), 0 1px 2px -1px hsl(220 13% 9% / 0.1);
+    --shadow-hover: 0 4px 6px -1px hsl(220 13% 9% / 0.1), 0 2px 4px -2px hsl(220 13% 9% / 0.1);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --radius: 0.5rem;
