@@ -1,33 +1,42 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { VideoCard } from "@/components/VideoCard";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { featuredVideos, trendingVideos, recentVideos } from "@/data/mockData";
+import {
+  featuredVideos,
+  trendingVideos,
+  recentVideos,
+  mockVideos,
+} from "@/data/mockData";
 import { TrendingUp, Clock, Star, Play } from "lucide-react";
 
 export const HomePage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTab, setSelectedTab] = useState("trending");
+  const navigate = useNavigate();
 
   const handleVideoClick = (videoId: string) => {
-    // TODO: Navigate to video detail page
-    console.log("Navigate to video:", videoId);
+    navigate(`/video/${videoId}`);
   };
 
   const filteredVideos = (videos: typeof trendingVideos) => {
     if (!searchQuery) return videos;
-    return videos.filter(video => 
-      video.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      video.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      video.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+    return videos.filter(
+      (video) =>
+        video.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        video.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        video.tags.some((tag) =>
+          tag.toLowerCase().includes(searchQuery.toLowerCase())
+        )
     );
   };
 
   return (
     <div className="min-h-screen bg-background">
-      <Header 
+      <Header
         onSearch={setSearchQuery}
         onSubmitVideo={() => console.log("Submit video")}
         onLogin={() => console.log("Login")}
@@ -35,148 +44,276 @@ export const HomePage = () => {
       />
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-hero border-b border-border">
-        <div className="container mx-auto px-6 py-24 text-center">
-          <div className="max-w-4xl mx-auto space-y-8">
-            <h1 className="text-5xl md:text-7xl font-serif font-medium text-foreground">
-              Discover
-              <span className="block text-primary italic">Startup Stories</span>
-            </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              Curate, review, and discover the most compelling startup videos. 
-              From pitch decks to product demos, find inspiration in the stories that matter.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="px-8 py-3">
-                <Play className="w-4 h-4 mr-2" />
-                Explore Videos
-              </Button>
-              <Button size="lg" variant="outline" className="px-8 py-3">
-                Submit a Video
-              </Button>
+      <section className="w-full">
+        <div className="w-full py-24 pl-8">
+          <h1 className="text-5xl md:text-7xl font-magic leading-tight text-center">
+            <span className="block mb-16 text-foreground">EXPLORE STARTUP</span>
+            <span className="block text-foreground">VIDEO CONTENT</span>
+          </h1>
+        </div>
+      </section>
+
+      {/* Filters & Sort Bar */}
+      <div className="w-full pl-8 pr-8 pt-0 pb-2">
+        <div className="flex items-center gap-4 mb-2">
+          <span className="font-bold text-lg">Filters</span>
+          <button className="px-4 py-1 rounded-full border border-border bg-white text-xs font-medium">
+            Funding Stage +
+          </button>
+          <button className="px-4 py-1 rounded-full border border-border bg-white text-xs font-medium">
+            Video Type +
+          </button>
+          <button className="px-4 py-1 rounded-full border border-border bg-white text-xs font-medium">
+            Cost +
+          </button>
+          <button className="px-4 py-1 rounded-full border border-border bg-white text-xs font-medium">
+            Made by Sequence +
+          </button>
+        </div>
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-2">
+            <span className="font-medium text-sm">Sort By</span>
+            <select className="border border-border rounded px-2 py-1 text-sm bg-white">
+              <option>Latest</option>
+              <option>Oldest</option>
+              <option>Top Rated</option>
+            </select>
+          </div>
+          <span className="text-muted-foreground text-sm">1-32 of 19,483</span>
+        </div>
+      </div>
+
+      {/* Video Grid */}
+      <div className="w-full pl-8 pr-8 pb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {mockVideos.slice(0, 8).map((video) => (
+            <div
+              key={video.id}
+              className="bg-white rounded-none p-0 cursor-pointer"
+              onClick={() => handleVideoClick(video.id)}
+            >
+              <img
+                src={video.thumbnail}
+                alt={video.title}
+                className="w-full aspect-video object-cover mb-2"
+              />
+              <div className="pl-1">
+                <div className="font-bold text-lg text-foreground mb-0 leading-snug">
+                  {video.title}
+                </div>
+                <div className="text-xs text-muted-foreground mb-1">
+                  <span
+                    className="hover:text-foreground hover:underline cursor-pointer"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/company/${video.company.toLowerCase()}`);
+                    }}
+                  >
+                    {video.company}
+                  </span>
+                </div>
+                <div className="text-xs text-muted-foreground mb-2">
+                  {video.genre}, {video.year} • {video.duration} •{" "}
+                  {video.ageRating}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Top Companies Section */}
+      <section className="w-full pl-8 pr-8 pb-16">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-2xl font-bold text-foreground">Top Companies</h2>
+          <a
+            href="#"
+            className="text-sm text-foreground hover:text-primary transition"
+          >
+            SEE ALL &gt;
+          </a>
+        </div>
+        <div className="flex gap-8 overflow-x-auto pb-4">
+          {/* Company 1 */}
+          <div
+            className="flex flex-col items-center min-w-[200px] cursor-pointer hover:opacity-80 transition-opacity"
+            onClick={() => navigate("/company/stripe")}
+          >
+            <div className="w-[200px] h-[200px] bg-black rounded-full flex items-center justify-center mb-3">
+              <span className="text-white font-bold text-4xl">STRIPE</span>
+            </div>
+            <div className="text-center">
+              <div className="font-bold text-foreground mb-1 hover:underline">
+                Stripe
+              </div>
+              <div className="text-xs text-muted-foreground">
+                Payment Infrastructure
+              </div>
+              <div className="text-xs text-muted-foreground">
+                SAN FRANCISCO, USA
+              </div>
+            </div>
+          </div>
+
+          {/* Company 2 */}
+          <div
+            className="flex flex-col items-center min-w-[200px] cursor-pointer hover:opacity-80 transition-opacity"
+            onClick={() => navigate("/company/figma")}
+          >
+            <div className="w-[200px] h-[200px] bg-blue-600 rounded-full flex items-center justify-center mb-3">
+              <span className="text-white font-bold text-4xl">F</span>
+            </div>
+            <div className="text-center">
+              <div className="font-bold text-foreground mb-1 hover:underline">
+                Figma
+              </div>
+              <div className="text-xs text-muted-foreground">
+                Design Platform
+              </div>
+              <div className="text-xs text-muted-foreground">
+                SAN FRANCISCO, USA
+              </div>
+            </div>
+          </div>
+
+          {/* Company 3 */}
+          <div
+            className="flex flex-col items-center min-w-[200px] cursor-pointer hover:opacity-80 transition-opacity"
+            onClick={() => navigate("/company/notion")}
+          >
+            <div className="w-[200px] h-[200px] bg-red-600 rounded-full flex items-center justify-center mb-3">
+              <span className="text-white font-bold text-4xl">N</span>
+            </div>
+            <div className="text-center">
+              <div className="font-bold text-foreground mb-1 hover:underline">
+                Notion
+              </div>
+              <div className="text-xs text-muted-foreground">
+                Productivity Platform
+              </div>
+              <div className="text-xs text-muted-foreground">
+                SAN FRANCISCO, USA
+              </div>
+            </div>
+          </div>
+
+          {/* Company 4 */}
+          <div
+            className="flex flex-col items-center min-w-[200px] cursor-pointer hover:opacity-80 transition-opacity"
+            onClick={() => navigate("/company/airbnb")}
+          >
+            <div className="w-[200px] h-[200px] bg-black rounded-full flex items-center justify-center mb-3">
+              <span className="text-white font-bold text-4xl">AIR</span>
+            </div>
+            <div className="text-center">
+              <div className="font-bold text-foreground mb-1 hover:underline">
+                Airbnb
+              </div>
+              <div className="text-xs text-muted-foreground">
+                Travel Platform
+              </div>
+              <div className="text-xs text-muted-foreground">
+                SAN FRANCISCO, USA
+              </div>
+            </div>
+          </div>
+
+          {/* Company 5 */}
+          <div
+            className="flex flex-col items-center min-w-[200px] cursor-pointer hover:opacity-80 transition-opacity"
+            onClick={() => navigate("/company/shopify")}
+          >
+            <div className="w-[200px] h-[200px] bg-green-600 rounded-full flex items-center justify-center mb-3">
+              <span className="text-white font-bold text-4xl">S</span>
+            </div>
+            <div className="text-center">
+              <div className="font-bold text-foreground mb-1 hover:underline">
+                Shopify
+              </div>
+              <div className="text-xs text-muted-foreground">
+                E-commerce Platform
+              </div>
+              <div className="text-xs text-muted-foreground">
+                OTTAWA, CANADA
+              </div>
+            </div>
+          </div>
+
+          {/* Company 6 */}
+          <div
+            className="flex flex-col items-center min-w-[200px] cursor-pointer hover:opacity-80 transition-opacity"
+            onClick={() => navigate("/company/openai")}
+          >
+            <div className="w-[200px] h-[200px] bg-purple-600 rounded-full flex items-center justify-center mb-3">
+              <span className="text-white font-bold text-4xl">O</span>
+            </div>
+            <div className="text-center">
+              <div className="font-bold text-foreground mb-1 hover:underline">
+                OpenAI
+              </div>
+              <div className="text-xs text-muted-foreground">AI Research</div>
+              <div className="text-xs text-muted-foreground">
+                SAN FRANCISCO, USA
+              </div>
+            </div>
+          </div>
+
+          {/* Company 7 */}
+          <div
+            className="flex flex-col items-center min-w-[200px] cursor-pointer hover:opacity-80 transition-opacity"
+            onClick={() => navigate("/company/canva")}
+          >
+            <div className="w-[200px] h-[200px] bg-pink-500 rounded-full flex items-center justify-center mb-3">
+              <span className="text-white font-bold text-4xl">C</span>
+            </div>
+            <div className="text-center">
+              <div className="font-bold text-foreground mb-1 hover:underline">
+                Canva
+              </div>
+              <div className="text-xs text-muted-foreground">
+                Design Platform
+              </div>
+              <div className="text-xs text-muted-foreground">
+                SYDNEY, AUSTRALIA
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Videos */}
-      <section className="container mx-auto px-6 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-serif font-medium text-foreground mb-4">Featured Videos</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">Handpicked stories from the startup world</p>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredVideos.map((video) => (
-            <VideoCard
-              key={video.id}
-              video={video}
-              size="lg"
-              showDescription
-              onClick={() => handleVideoClick(video.id)}
-              className="animate-fade-in"
-            />
-          ))}
-        </div>
-      </section>
-
-      {/* Browse Videos */}
-      <section className="container mx-auto px-6 py-16 border-t border-border">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-serif font-medium text-foreground mb-4">Browse Videos</h2>
-        </div>
-        
-        <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 max-w-md mb-12 mx-auto bg-muted">
-            <TabsTrigger value="trending" className="flex items-center gap-2 font-medium">
-              <TrendingUp className="w-4 h-4" />
-              Trending
-            </TabsTrigger>
-            <TabsTrigger value="recent" className="flex items-center gap-2 font-medium">
-              <Clock className="w-4 h-4" />
-              Recent
-            </TabsTrigger>
-            <TabsTrigger value="featured" className="flex items-center gap-2 font-medium">
-              <Star className="w-4 h-4" />
-              Top Rated
-            </TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="trending" className="space-y-8">
-            <div className="text-center">
-              <Badge variant="secondary" className="mb-8">
-                {filteredVideos(trendingVideos).length} videos
-              </Badge>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {filteredVideos(trendingVideos).map((video, index) => (
-                <VideoCard
-                  key={video.id}
-                  video={video}
-                  onClick={() => handleVideoClick(video.id)}
-                  className="animate-fade-in"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                />
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="recent" className="space-y-8">
-            <div className="text-center">
-              <Badge variant="secondary" className="mb-8">
-                {filteredVideos(recentVideos).length} videos
-              </Badge>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {filteredVideos(recentVideos).map((video, index) => (
-                <VideoCard
-                  key={video.id}
-                  video={video}
-                  onClick={() => handleVideoClick(video.id)}
-                  className="animate-fade-in"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                />
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="featured" className="space-y-8">
-            <div className="text-center">
-              <Badge variant="secondary" className="mb-8">
-                {filteredVideos([...trendingVideos].sort((a, b) => b.rating - a.rating)).length} videos
-              </Badge>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {filteredVideos([...trendingVideos].sort((a, b) => b.rating - a.rating)).map((video, index) => (
-                <VideoCard
-                  key={video.id}
-                  video={video}
-                  onClick={() => handleVideoClick(video.id)}
-                  className="animate-fade-in"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                />
-              ))}
-            </div>
-          </TabsContent>
-        </Tabs>
-      </section>
-
       {/* CTA Section */}
-      <section className="bg-muted/30 py-20 border-t border-border">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-4xl font-serif font-medium text-foreground mb-6">
-            Join the Community
-          </h2>
-          <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
-            Connect with startup enthusiasts, share your favorite videos, and discover the next big thing in the startup ecosystem.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="px-8 py-3">
-              Sign Up Free
-            </Button>
-            <Button size="lg" variant="outline" className="px-8 py-3">
-              Learn More
-            </Button>
+      <section className="w-full relative">
+        <div className="relative h-[600px] overflow-hidden">
+          {/* Background Image */}
+          <img
+            src="/SeargantYelling copy.png"
+            alt="Hero Background"
+            className="w-full h-full object-cover"
+          />
+          {/* Dark Overlay */}
+          <div className="absolute inset-0 bg-black/50"></div>
+
+          {/* Content Overlay */}
+          <div className="absolute inset-0 flex flex-col items-start justify-center text-left px-8">
+            <div className="max-w-2xl space-y-6">
+              <h2 className="text-4xl md:text-6xl font-bold text-white leading-tight">
+                Track startup videos you've watched.
+              </h2>
+              <p className="text-xl md:text-2xl text-white/90 leading-relaxed">
+                Save those you want to see.
+              </p>
+              <p className="text-xl md:text-2xl text-white/90 leading-relaxed">
+                Tell your friends what's good.
+              </p>
+              <div className="pt-8">
+                <button className="bg-primary hover:bg-primary/90 text-white font-bold px-8 py-4 rounded-lg text-lg transition">
+                  Get started — it's free!
+                </button>
+              </div>
+              <p className="text-white/70 text-sm mt-4">
+                The social network for startup video lovers.
+              </p>
+            </div>
           </div>
         </div>
       </section>

@@ -1,4 +1,5 @@
 import { Search, User, Plus, LogIn } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -12,25 +13,36 @@ interface HeaderProps {
   className?: string;
 }
 
-export const Header = ({ 
-  onSearch, 
-  onSubmitVideo, 
-  onLogin, 
-  onProfile, 
+export const Header = ({
+  onSearch,
+  onSubmitVideo,
+  onLogin,
+  onProfile,
   isLoggedIn = false,
-  className 
+  className,
 }: HeaderProps) => {
+  const navigate = useNavigate();
+
+  const handleLogoClick = () => {
+    navigate("/");
+  };
+
   return (
-    <header className={cn(
-      "sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/80",
-      className
-    )}>
+    <header
+      className={cn(
+        "sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/80",
+        className
+      )}
+    >
       <div className="container mx-auto px-6 h-20 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center">
-          <h1 className="text-2xl font-serif font-medium text-primary tracking-wide">
-            STARTUPREELS
-          </h1>
+          <img
+            src="/logo.svg"
+            alt="Sequence Logo"
+            className="h-6 w-auto cursor-pointer hover:opacity-80 transition-opacity"
+            onClick={handleLogoClick}
+          />
         </div>
 
         {/* Search Bar */}
@@ -50,8 +62,8 @@ export const Header = ({
         <div className="flex items-center space-x-3">
           {isLoggedIn ? (
             <>
-              <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 size="sm"
                 onClick={onSubmitVideo}
                 className="hidden sm:flex items-center gap-2"
@@ -59,8 +71,8 @@ export const Header = ({
                 <Plus className="w-4 h-4" />
                 Submit Video
               </Button>
-              <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 size="sm"
                 onClick={onProfile}
                 className="flex items-center gap-2"
@@ -70,8 +82,8 @@ export const Header = ({
               </Button>
             </>
           ) : (
-            <Button 
-              variant="ghost" 
+            <Button
+              variant="ghost"
               size="sm"
               onClick={onLogin}
               className="flex items-center gap-2"

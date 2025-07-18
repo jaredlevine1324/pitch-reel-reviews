@@ -1,266 +1,319 @@
 import { useState } from "react";
-import { ArrowLeft, ExternalLink, Calendar, Eye, Share2, Heart, MessageSquare } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { StarRating } from "@/components/StarRating";
+import { useParams, useNavigate } from "react-router-dom";
 import { Header } from "@/components/Header";
-
-// Mock video data
-const mockVideo = {
-  id: "1",
-  title: "Stripe's Revolutionary Payment Infrastructure Demo",
-  company: "Stripe",
-  description: "A comprehensive demo showcasing Stripe's latest payment infrastructure innovations, including instant payouts, global compliance, and developer-first APIs.",
-  videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-  thumbnail: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=450&fit=crop",
-  duration: "8:42",
-  uploadDate: "2024-01-15",
-  views: 125000,
-  rating: 4.6,
-  reviewCount: 89,
-  tags: ["demo", "fintech", "API", "payments"],
-  submittedBy: "Sarah Chen"
-};
-
-const mockReviews = [
-  {
-    id: "1",
-    user: "Alex Johnson",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face",
-    rating: 5,
-    text: "Incredible demo! The way they explain complex payment flows is so clear. This is exactly what we needed to see for our integration.",
-    date: "2024-01-20",
-    likes: 12
-  },
-  {
-    id: "2", 
-    user: "Maria Garcia",
-    avatar: "https://images.unsplash.com/photo-1494790108755-2616b2d1b4c6?w=40&h=40&fit=crop&crop=face",
-    rating: 4,
-    text: "Great technical depth, though I wish they covered more about international compliance. Still very valuable for understanding their platform.",
-    date: "2024-01-18",
-    likes: 8
-  },
-  {
-    id: "3",
-    user: "David Kim", 
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face",
-    rating: 5,
-    text: "This demo convinced our team to switch to Stripe. The developer experience looks amazing and the API design is so intuitive.",
-    date: "2024-01-16",
-    likes: 15
-  }
-];
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Heart,
+  Bookmark,
+  MoreHorizontal,
+  Star,
+  MessageSquare,
+  Play,
+} from "lucide-react";
+import { mockVideos } from "@/data/mockData";
 
 export const VideoDetail = () => {
-  const [userRating, setUserRating] = useState(0);
-  const [reviewText, setReviewText] = useState("");
+  const { videoId } = useParams<{ videoId: string }>();
+  const [rating, setRating] = useState<number | null>(null);
   const [isLiked, setIsLiked] = useState(false);
+  const [comment, setComment] = useState("");
+  const navigate = useNavigate();
 
-  const formatViews = (views: number) => {
-    if (views >= 1000000) return `${(views / 1000000).toFixed(1)}M`;
-    if (views >= 1000) return `${(views / 1000).toFixed(1)}K`;
-    return views.toString();
+  // Find the specific video data based on videoId
+  const videoData = mockVideos.find((video) => video.id === videoId);
+
+  // If video not found, show a default or error state
+  if (!videoData) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Header
+          onSearch={() => {}}
+          onSubmitVideo={() => {}}
+          onLogin={() => {}}
+          isLoggedIn={true}
+        />
+        <div className="max-w-4xl mx-auto px-6 py-8">
+          <h1 className="text-2xl font-bold text-foreground">
+            Video not found
+          </h1>
+        </div>
+      </div>
+    );
+  }
+
+  // Mock additional data for the video detail page
+  const video = {
+    ...videoData,
+    creator: videoData.company,
+    creatorAvatar: `https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face`,
+    technique: "Live-Action",
+    topics: videoData.tags,
+    honors: [
+      { id: 1, name: "Best Demo", color: "purple", icon: "🏆" },
+      { id: 2, name: "Innovation Award", color: "yellow", icon: "⭐" },
+      { id: 3, name: "Tech Festival", color: "black", icon: "🎬" },
+    ],
+    credits: [
+      { name: "Sarah Chen", role: "Director", avatar: "SC" },
+      { name: "Mike Rodriguez", role: "Producer", avatar: "MR" },
+      { name: "Alex Johnson", role: "Cinematographer", avatar: "AJ" },
+    ],
   };
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", { 
-      month: "long", 
-      day: "numeric", 
-      year: "numeric" 
-    });
+  const handleRating = (value: number) => {
+    setRating(value);
   };
 
-  const handleSubmitReview = () => {
-    // TODO: Implement with Supabase
-    console.log("Submitting review:", { rating: userRating, text: reviewText });
-    setUserRating(0);
-    setReviewText("");
+  const handleLike = () => {
+    setIsLiked(!isLiked);
+  };
+
+  const handleComment = () => {
+    if (comment.trim()) {
+      // Handle comment submission
+      console.log("Comment submitted:", comment);
+      setComment("");
+    }
   };
 
   return (
     <div className="min-h-screen bg-background">
-      <Header isLoggedIn={true} />
-      
-      <div className="container mx-auto px-4 py-6">
-        {/* Back Button */}
-        <Button 
-          variant="ghost" 
-          className="mb-6 flex items-center gap-2"
-          onClick={() => window.history.back()}
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Feed
-        </Button>
+      <Header
+        onSearch={() => {}}
+        onSubmitVideo={() => {}}
+        onLogin={() => {}}
+        isLoggedIn={true}
+      />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Video Player Section */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Video Player */}
-            <div className="aspect-video bg-black rounded-lg overflow-hidden shadow-card">
-              <iframe
-                src={mockVideo.videoUrl}
-                title={mockVideo.title}
-                className="w-full h-full"
-                allowFullScreen
-              />
-            </div>
-
-            {/* Video Info */}
-            <div className="space-y-4">
-              <div>
-                <h1 className="text-2xl font-bold text-foreground mb-2">
-                  {mockVideo.title}
-                </h1>
-                <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                  <span className="font-medium text-foreground">{mockVideo.company}</span>
-                  <div className="flex items-center gap-1">
-                    <Calendar className="w-4 h-4" />
-                    {formatDate(mockVideo.uploadDate)}
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Eye className="w-4 h-4" />
-                    {formatViews(mockVideo.views)} views
-                  </div>
-                </div>
-              </div>
-
-              {/* Rating and Actions */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-6">
-                  <div className="flex items-center gap-2">
-                    <StarRating rating={mockVideo.rating} size="lg" />
-                    <span className="text-sm text-muted-foreground">
-                      ({mockVideo.reviewCount} reviews)
-                    </span>
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-2">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setIsLiked(!isLiked)}
-                    className={isLiked ? "text-red-500" : ""}
-                  >
-                    <Heart className={`w-4 h-4 ${isLiked ? "fill-current" : ""}`} />
-                  </Button>
-                  <Button variant="ghost" size="sm">
-                    <Share2 className="w-4 h-4" />
-                  </Button>
-                  <Button variant="ghost" size="sm">
-                    <ExternalLink className="w-4 h-4" />
-                  </Button>
-                </div>
-              </div>
-
-              {/* Tags */}
-              <div className="flex gap-2 flex-wrap">
-                {mockVideo.tags.map((tag) => (
-                  <Badge key={tag} variant="secondary">
-                    {tag}
-                  </Badge>
-                ))}
-              </div>
-
-              {/* Description */}
-              <div className="prose prose-invert max-w-none">
-                <p className="text-muted-foreground leading-relaxed">
-                  {mockVideo.description}
-                </p>
-              </div>
-
-              <div className="text-sm text-muted-foreground">
-                Submitted by <span className="text-foreground">{mockVideo.submittedBy}</span>
-              </div>
-            </div>
+      {/* Video Player Section */}
+      <div className="w-full bg-black">
+        <div className="relative aspect-video max-w-6xl mx-auto">
+          <img
+            src={video.thumbnail}
+            alt={video.title}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+            <Button
+              size="lg"
+              className="bg-primary hover:bg-primary/90 text-white"
+            >
+              <Play className="w-6 h-6 mr-2" />
+              WATCH VIDEO
+            </Button>
           </div>
+        </div>
+      </div>
 
-          {/* Reviews Section */}
-          <div className="space-y-6">
-            {/* Add Review */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <MessageSquare className="w-5 h-5" />
-                  Write a Review
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Your Rating</label>
-                  <StarRating 
-                    rating={userRating} 
-                    interactive 
-                    onRatingChange={setUserRating}
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-6 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Left Column - Main Content */}
+          <div className="lg:col-span-2">
+            {/* Title and Creator */}
+            <div className="flex items-start justify-between mb-6">
+              <div>
+                <h1 className="text-3xl font-bold text-foreground mb-2">
+                  {video.title}
+                </h1>
+                <div className="flex items-center gap-3">
+                  <img
+                    src={video.creatorAvatar}
+                    alt={video.creator}
+                    className="w-8 h-8 rounded-full"
                   />
+                  <span
+                    className="text-muted-foreground hover:text-foreground hover:underline cursor-pointer"
+                    onClick={() =>
+                      navigate(`/company/${video.creator.toLowerCase()}`)
+                    }
+                  >
+                    {video.creator}
+                  </span>
+                  <span className="text-sm text-muted-foreground">
+                    1 YEAR AGO
+                  </span>
                 </div>
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Your Review</label>
-                  <Textarea
-                    placeholder="Share your thoughts about this video..."
-                    value={reviewText}
-                    onChange={(e) => setReviewText(e.target.value)}
-                    className="min-h-[100px] resize-none"
-                  />
-                </div>
-                <Button 
-                  onClick={handleSubmitReview}
-                  disabled={userRating === 0 || !reviewText.trim()}
-                  className="w-full"
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex items-center gap-2">
+                <Button
+                  variant={isLiked ? "default" : "outline"}
+                  size="sm"
+                  onClick={handleLike}
+                  className="flex items-center gap-2"
                 >
-                  Submit Review
+                  <Heart className="w-4 h-4" />
+                  LIKE
                 </Button>
-              </CardContent>
-            </Card>
+                <Button variant="outline" size="sm">
+                  <Bookmark className="w-4 h-4" />
+                </Button>
+                <Button variant="outline" size="sm">
+                  <MoreHorizontal className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
 
-            {/* Reviews List */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Reviews ({mockReviews.length})</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                {mockReviews.map((review) => (
-                  <div key={review.id} className="space-y-3">
-                    <div className="flex items-start gap-3">
-                      <img
-                        src={review.avatar}
-                        alt={review.user}
-                        className="w-10 h-10 rounded-full object-cover"
+            {/* Description */}
+            <p className="text-muted-foreground mb-8 leading-relaxed">
+              {video.description}
+            </p>
+
+            {/* Tabs */}
+            <Tabs defaultValue="comments" className="w-full">
+              <TabsList className="grid w-full grid-cols-4 bg-transparent border-b border-border">
+                <TabsTrigger
+                  value="comments"
+                  className="data-[state=active]:border-b-2 data-[state=active]:border-foreground data-[state=active]:bg-transparent data-[state=active]:text-foreground rounded-none border-b-2 border-transparent"
+                >
+                  Comments
+                </TabsTrigger>
+                <TabsTrigger
+                  value="credits"
+                  className="data-[state=active]:border-b-2 data-[state=active]:border-foreground data-[state=active]:bg-transparent data-[state=active]:text-foreground rounded-none border-b-2 border-transparent"
+                >
+                  Credits 30
+                </TabsTrigger>
+                <TabsTrigger
+                  value="details"
+                  className="data-[state=active]:border-b-2 data-[state=active]:border-foreground data-[state=active]:bg-transparent data-[state=active]:text-foreground rounded-none border-b-2 border-transparent"
+                >
+                  Details
+                </TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="comments" className="mt-6">
+                <div className="space-y-4">
+                  <div className="flex gap-3">
+                    <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-sm font-bold">
+                      U
+                    </div>
+                    <div className="flex-1">
+                      <input
+                        type="text"
+                        placeholder="Add a comment..."
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                        className="w-full p-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                       />
-                      <div className="flex-1 space-y-2">
-                        <div className="flex items-center justify-between">
-                          <h4 className="font-medium text-foreground">{review.user}</h4>
-                          <span className="text-xs text-muted-foreground">
-                            {formatDate(review.date)}
-                          </span>
+                      <Button onClick={handleComment} className="mt-2">
+                        COMMENT
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="credits" className="mt-6">
+                <div className="space-y-4">
+                  {video.credits.map((credit, index) => (
+                    <div key={index} className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white text-sm font-bold">
+                        {credit.avatar}
+                      </div>
+                      <div>
+                        <div className="font-medium text-foreground">
+                          {credit.name}
                         </div>
-                        <StarRating rating={review.rating} size="sm" />
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                          {review.text}
-                        </p>
-                        <div className="flex items-center gap-2">
-                          <Button 
-                            variant="ghost" 
-                            size="sm" 
-                            className="h-auto p-1 text-xs"
-                          >
-                            <Heart className="w-3 h-3 mr-1" />
-                            {review.likes}
-                          </Button>
+                        <div className="text-sm text-muted-foreground">
+                          {credit.role}
                         </div>
                       </div>
                     </div>
-                    {review.id !== mockReviews[mockReviews.length - 1].id && (
-                      <div className="border-b border-border" />
-                    )}
-                  </div>
+                  ))}
+                </div>
+              </TabsContent>
+            </Tabs>
+          </div>
+
+          {/* Right Column - Sidebar */}
+          <div className="space-y-6">
+            {/* My Rating */}
+            <div>
+              <h3 className="font-bold text-foreground mb-3">My Rating</h3>
+              <div className="flex gap-1">
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => (
+                  <button
+                    key={value}
+                    onClick={() => handleRating(value)}
+                    className={`w-8 h-8 text-sm font-medium border rounded ${
+                      rating === value
+                        ? "bg-primary text-white border-primary"
+                        : "bg-background text-foreground border-border hover:bg-muted"
+                    }`}
+                  >
+                    {value}
+                  </button>
                 ))}
-              </CardContent>
-            </Card>
+              </div>
+            </div>
+
+            {/* Details */}
+            <div>
+              <h3 className="font-bold text-foreground mb-3">Details</h3>
+              <div className="space-y-1 text-sm text-muted-foreground">
+                <div>{video.duration}</div>
+                <div>{video.ageRating}</div>
+                <div>{video.uploadDate}</div>
+                <div>{video.views.toLocaleString()} VIEWS</div>
+              </div>
+            </div>
+
+            {/* Genres */}
+            <div>
+              <h3 className="font-bold text-foreground mb-3">Genres</h3>
+              <div className="flex gap-2">
+                <Badge
+                  variant="secondary"
+                  className="bg-green-100 text-green-800"
+                >
+                  {video.genre}
+                </Badge>
+              </div>
+            </div>
+
+            {/* Techniques */}
+            <div>
+              <h3 className="font-bold text-foreground mb-3">Techniques</h3>
+              <div className="flex gap-2">
+                <Badge
+                  variant="secondary"
+                  className="bg-blue-100 text-blue-800"
+                >
+                  {video.technique}
+                </Badge>
+              </div>
+            </div>
+
+            {/* Topics */}
+            <div>
+              <h3 className="font-bold text-foreground mb-3">Topics</h3>
+              <div className="flex gap-2 flex-wrap">
+                {video.topics.map((topic) => (
+                  <Badge
+                    key={topic}
+                    variant="secondary"
+                    className="bg-blue-50 text-blue-700"
+                  >
+                    {topic}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+
+            {/* Contact CTAs */}
+            <div className="space-y-3 pt-6 border-t border-border">
+              <Button className="w-full bg-primary hover:bg-primary/90">
+                Contact {video.creator}
+              </Button>
+              <Button variant="outline" className="w-full">
+                Contact Production Team
+              </Button>
+            </div>
           </div>
         </div>
       </div>

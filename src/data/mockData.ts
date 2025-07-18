@@ -5,110 +5,294 @@ export const mockVideos = [
     id: "1",
     title: "Stripe's Revolutionary Payment Infrastructure Demo",
     company: "Stripe",
-    thumbnail: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=450&fit=crop",
+    thumbnail:
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=450&fit=crop",
     duration: "8:42",
     uploadDate: "2024-01-15",
     views: 125000,
     rating: 4.6,
     reviewCount: 89,
     tags: ["demo", "fintech", "API"],
-    description: "A comprehensive demo showcasing Stripe's latest payment infrastructure innovations."
+    description:
+      "A comprehensive demo showcasing Stripe's latest payment infrastructure innovations.",
+    genre: "Fintech",
+    year: "2024",
+    ageRating: "All",
   },
   {
-    id: "2", 
+    id: "2",
     title: "Figma's Design System Revolution",
     company: "Figma",
-    thumbnail: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=450&fit=crop",
+    thumbnail:
+      "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=450&fit=crop",
     duration: "12:15",
     uploadDate: "2024-01-10",
     views: 89000,
     rating: 4.8,
     reviewCount: 156,
     tags: ["design", "collaboration", "workflow"],
-    description: "How Figma is transforming the design industry with real-time collaboration."
+    description:
+      "How Figma is transforming the design industry with real-time collaboration.",
+    genre: "Design",
+    year: "2024",
+    ageRating: "All",
   },
   {
     id: "3",
     title: "Notion's AI-Powered Workspace Pitch",
     company: "Notion",
-    thumbnail: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=450&fit=crop",
+    thumbnail:
+      "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=450&fit=crop",
     duration: "6:30",
     uploadDate: "2024-01-08",
     views: 67000,
     rating: 4.4,
     reviewCount: 72,
     tags: ["pitch", "AI", "productivity"],
-    description: "Notion's vision for the future of AI-enhanced productivity and knowledge management."
+    description:
+      "Notion's vision for the future of AI-enhanced productivity and knowledge management.",
+    genre: "Productivity",
+    year: "2024",
+    ageRating: "All",
   },
   {
     id: "4",
     title: "Airbnb's Growth Strategy Deep Dive",
-    company: "Airbnb", 
-    thumbnail: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=450&fit=crop",
+    company: "Airbnb",
+    thumbnail:
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=450&fit=crop",
     duration: "15:20",
     uploadDate: "2024-01-05",
     views: 234000,
     rating: 4.7,
     reviewCount: 203,
     tags: ["strategy", "growth", "marketplace"],
-    description: "An inside look at Airbnb's global expansion and growth strategies."
+    description:
+      "An inside look at Airbnb's global expansion and growth strategies.",
+    genre: "Marketplace",
+    year: "2024",
+    ageRating: "All",
   },
   {
     id: "5",
     title: "Shopify's E-commerce Platform Evolution",
     company: "Shopify",
-    thumbnail: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=800&h=450&fit=crop",
+    thumbnail:
+      "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=800&h=450&fit=crop",
     duration: "9:15",
     uploadDate: "2024-01-03",
     views: 156000,
     rating: 4.5,
     reviewCount: 134,
     tags: ["e-commerce", "platform", "scaling"],
-    description: "How Shopify built and scaled their e-commerce platform to serve millions of merchants."
+    description:
+      "How Shopify built and scaled their e-commerce platform to serve millions of merchants.",
+    genre: "E-commerce",
+    year: "2024",
+    ageRating: "All",
   },
   {
     id: "6",
     title: "OpenAI's GPT Development Journey",
     company: "OpenAI",
-    thumbnail: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop",
+    thumbnail:
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop",
     duration: "18:45",
     uploadDate: "2024-01-01",
     views: 892000,
     rating: 4.9,
     reviewCount: 445,
     tags: ["AI", "research", "breakthrough"],
-    description: "The technical and philosophical journey behind GPT and large language models."
+    description:
+      "The technical and philosophical journey behind GPT and large language models.",
+    genre: "AI",
+    year: "2024",
+    ageRating: "All",
   },
   {
     id: "7",
     title: "Canva's Design Democratization Mission",
     company: "Canva",
-    thumbnail: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=450&fit=crop",
+    thumbnail:
+      "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=450&fit=crop",
     duration: "7:50",
     uploadDate: "2023-12-28",
     views: 78000,
     rating: 4.3,
     reviewCount: 98,
     tags: ["design", "democratization", "tools"],
-    description: "How Canva is making professional design accessible to everyone."
+    description:
+      "How Canva is making professional design accessible to everyone.",
+    genre: "Design",
+    year: "2023",
+    ageRating: "All",
   },
   {
     id: "8",
     title: "Slack's Communication Revolution Explainer",
     company: "Slack",
-    thumbnail: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=450&fit=crop",
+    thumbnail:
+      "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=450&fit=crop",
     duration: "5:25",
     uploadDate: "2023-12-25",
     views: 143000,
     rating: 4.2,
     reviewCount: 167,
     tags: ["communication", "workplace", "collaboration"],
-    description: "The story of how Slack transformed workplace communication and team collaboration."
-  }
+    description:
+      "The story of how Slack transformed workplace communication and team collaboration.",
+    genre: "Communication",
+    year: "2023",
+    ageRating: "All",
+  },
+  {
+    id: "9",
+    title: "Zapier's Automation for Startups",
+    company: "Zapier",
+    thumbnail:
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&h=450&fit=crop",
+    duration: "10:05",
+    uploadDate: "2024-01-20",
+    views: 54000,
+    rating: 4.5,
+    reviewCount: 77,
+    tags: ["automation", "workflow", "integration"],
+    description:
+      "How Zapier empowers startups to automate workflows and connect their favorite tools.",
+    genre: "Automation",
+    year: "2024",
+    ageRating: "All",
+  },
+  {
+    id: "10",
+    title: "Plaid's Fintech API Pitch",
+    company: "Plaid",
+    thumbnail:
+      "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=450&fit=crop",
+    duration: "7:30",
+    uploadDate: "2024-01-18",
+    views: 32000,
+    rating: 4.4,
+    reviewCount: 61,
+    tags: ["fintech", "API", "banking"],
+    description:
+      "Plaid's pitch for their API platform and how it powers the next generation of fintech apps.",
+    genre: "Fintech",
+    year: "2024",
+    ageRating: "All",
+  },
+  {
+    id: "11",
+    title: "Calendly's Scheduling Revolution",
+    company: "Calendly",
+    thumbnail:
+      "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=800&h=450&fit=crop",
+    duration: "5:45",
+    uploadDate: "2024-01-17",
+    views: 41000,
+    rating: 4.3,
+    reviewCount: 54,
+    tags: ["scheduling", "productivity", "calendar"],
+    description:
+      "Calendly's journey to making scheduling effortless for startups and enterprises alike.",
+    genre: "Productivity",
+    year: "2024",
+    ageRating: "All",
+  },
+  {
+    id: "12",
+    title: "Brex's Corporate Card for Startups",
+    company: "Brex",
+    thumbnail:
+      "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?w=800&h=450&fit=crop",
+    duration: "8:10",
+    uploadDate: "2024-01-16",
+    views: 29500,
+    rating: 4.2,
+    reviewCount: 39,
+    tags: ["finance", "corporate card", "startup"],
+    description:
+      "Brex explains how their corporate card is tailored for the needs of fast-growing startups.",
+    genre: "Finance",
+    year: "2024",
+    ageRating: "All",
+  },
+  {
+    id: "13",
+    title: "Gusto's Payroll Made Easy",
+    company: "Gusto",
+    thumbnail:
+      "https://images.unsplash.com/photo-1464983953574-0892a716854b?w=800&h=450&fit=crop",
+    duration: "6:20",
+    uploadDate: "2024-01-14",
+    views: 38000,
+    rating: 4.6,
+    reviewCount: 48,
+    tags: ["payroll", "HR", "startup"],
+    description:
+      "Gusto's video on simplifying payroll and HR for startups and small businesses.",
+    genre: "HR",
+    year: "2024",
+    ageRating: "All",
+  },
+  {
+    id: "14",
+    title: "Loom's Video Messaging for Teams",
+    company: "Loom",
+    thumbnail:
+      "https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?w=800&h=450&fit=crop",
+    duration: "4:55",
+    uploadDate: "2024-01-13",
+    views: 27000,
+    rating: 4.4,
+    reviewCount: 33,
+    tags: ["video", "messaging", "remote work"],
+    description:
+      "Loom demonstrates how video messaging can boost team communication and productivity.",
+    genre: "Communication",
+    year: "2024",
+    ageRating: "All",
+  },
+  {
+    id: "15",
+    title: "Segment's Customer Data Platform",
+    company: "Segment",
+    thumbnail:
+      "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?w=800&h=450&fit=crop",
+    duration: "9:40",
+    uploadDate: "2024-01-12",
+    views: 36000,
+    rating: 4.5,
+    reviewCount: 42,
+    tags: ["data", "customer", "platform"],
+    description:
+      "Segment's overview of their customer data platform for startups and enterprises.",
+    genre: "Data",
+    year: "2024",
+    ageRating: "All",
+  },
+  {
+    id: "16",
+    title: "Intercom's Conversational Support",
+    company: "Intercom",
+    thumbnail:
+      "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=450&fit=crop",
+    duration: "7:20",
+    uploadDate: "2024-01-11",
+    views: 33000,
+    rating: 4.3,
+    reviewCount: 37,
+    tags: ["support", "chat", "customer"],
+    description:
+      "Intercom's approach to conversational support for startups and growing businesses.",
+    genre: "Support",
+    year: "2024",
+    ageRating: "All",
+  },
 ];
 
 export const featuredVideos = mockVideos.slice(0, 3);
 export const trendingVideos = [...mockVideos].sort((a, b) => b.views - a.views);
-export const recentVideos = [...mockVideos].sort((a, b) => 
-  new Date(b.uploadDate).getTime() - new Date(a.uploadDate).getTime()
+export const recentVideos = [...mockVideos].sort(
+  (a, b) => new Date(b.uploadDate).getTime() - new Date(a.uploadDate).getTime()
 );

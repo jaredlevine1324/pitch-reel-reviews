@@ -40,10 +40,20 @@ Design System: Light, sophisticated theme with elegant typography
     /* Custom design tokens */
     --star-rating: 45 93% 58%;
     --star-empty: 220 13% 75%;
-    --gradient-hero: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(220 14% 98%) 100%);
-    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(220 14% 99%) 100%);
-    --shadow-card: 0 1px 3px 0 hsl(220 13% 9% / 0.1), 0 1px 2px -1px hsl(220 13% 9% / 0.1);
-    --shadow-hover: 0 4px 6px -1px hsl(220 13% 9% / 0.1), 0 2px 4px -2px hsl(220 13% 9% / 0.1);
+    --gradient-hero: linear-gradient(
+      180deg,
+      hsl(0 0% 100%) 0%,
+      hsl(220 14% 98%) 100%
+    );
+    --gradient-card: linear-gradient(
+      180deg,
+      hsl(0 0% 100%) 0%,
+      hsl(220 14% 99%) 100%
+    );
+    --shadow-card: 0 1px 3px 0 hsl(220 13% 9% / 0.1),
+      0 1px 2px -1px hsl(220 13% 9% / 0.1);
+    --shadow-hover: 0 4px 6px -1px hsl(220 13% 9% / 0.1),
+      0 2px 4px -2px hsl(220 13% 9% / 0.1);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --radius: 0.5rem;
@@ -112,4 +122,11 @@ Design System: Light, sophisticated theme with elegant typography
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@font-face {
+  font-family: "Strange Magic";
+  src: url("/fonts/StrangeMagic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
 }
