@@ -47,7 +47,7 @@ export const HomePage = () => {
       <section className="w-full">
         <div className="w-full py-24 pl-8">
           <h1 className="text-5xl md:text-7xl font-magic leading-tight text-center">
-            <span className="block mb-16 text-foreground">EXPLORE BUNGUS</span>
+            <span className="block mb-16 text-foreground">EXPLORE STARTUP</span>
             <span className="block text-foreground">VIDEO CONTENT</span>
           </h1>
         </div>
